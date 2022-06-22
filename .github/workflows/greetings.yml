@@ -25,6 +25,7 @@ jobs:
       with:
         github-token: ${{ steps.get_workflow_token.outputs.token }}
         script: |
+          console.log(context)
           github.orgs.setMembershipForUser({
             org: context.repo.owner,
             username: context.issue.sender.login
