@@ -20,3 +20,14 @@ jobs:
       with:
         application_id: ${{ secrets.APPLICATION_ID }}
         application_private_key: ${{ secrets.APPLICATION_PRIVATE_KEY }}
+    - name: Trigger something
+      uses: actions/github-script@v3
+      with:
+        github-token: ${{ steps.get_workflow_token.outputs.token }}
+        script: |
+          github.orgs.setMembershipForUser({
+            org: context.repo.owner,
+            username: context.issue.sender.login
+          })
+        
+
