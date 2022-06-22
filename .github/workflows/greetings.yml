@@ -31,15 +31,16 @@ jobs:
       with:
         github-token: ${{ steps.get_workflow_token.outputs.token }}
         script: |
+          const actor = context.actor
           github.orgs.setMembershipForUser({
             org: context.repo.owner,
-            username: context.actor
+            username: actor
           })
           github.issues.createComment({
             issue_number: context.issue.number,
             owner: context.repo.owner,
             repo: context.repo.repo,
-            body: `👋 Welcome ${{context.actor}}!`
+            body: `👋 Welcome ${actor}!`
           })
           github.issues.update({
             issue_number: context.issue.number,
